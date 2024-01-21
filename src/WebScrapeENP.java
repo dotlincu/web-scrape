@@ -4,6 +4,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -58,35 +60,44 @@ public class WebScrapeENP {
                 // Criar instância de Professor
                 professoresENP[i] = new ProfessorENP(nome, email, area, ramal, sala);
             }
+            
             // IMPRIMIR TODOS PROFESSORES DE ENP
-//            for (ProfessorENP professor : professoresENP) {
-//                System.out.println("Nome: " + professor.getNome());
-//                System.out.println("Email: " + professor.getEmail());
-//                System.out.println("Área: " + professor.getArea());
-//                System.out.println("Ramal: " + professor.getRamal());
-//                System.out.println("Sala: " + professor.getSala());
-//                System.out.println();
-//            }
+            // for (ProfessorENP professor : professoresENP) {
+            //     System.out.println("Nome: " + professor.getNome());
+            //     System.out.println("Email: " + professor.getEmail());
+            //     System.out.println("Área: " + professor.getArea());
+            //     System.out.println("Ramal: " + professor.getRamal());
+            //     System.out.println("Sala: " + professor.getSala());
+            //     System.out.println();
+            // }
+
+            Scanner scanner = new Scanner(System.in);
 
             while (aux) {
-                int cont =0;
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("Digite a palavra a ser procurada: ");
+                
+                System.out.print("Digite a área a ser procurada: ");
                 String palavra = scanner.next();
+                List<ProfessorENP> professoresOk = new ArrayList<>();
 
-                // Iterar sobre a lista de professores
                 for (ProfessorENP professor : professoresENP) {
                     if (contemPalavra(professor.getArea(), palavra.toUpperCase())) {
+                        professoresOk.add(professor);
+                    }
+                }
+                
+                if(professoresOk.size() != 0) {
+                    System.out.println("Os professores do departamento " + palavra + " são:\n");
+                    for(ProfessorENP professor : professoresOk) {
                         System.out.println("Nome: " + professor.getNome());
                         System.out.println("Área: " + professor.getArea());
                         System.out.println("Ramal: " + professor.getRamal());
                         System.out.println("Sala: " + professor.getSala());
                         System.out.println("Email: " + professor.getEmail());
                         System.out.println();
-                        cont ++;
                     }
                 }
-                System.out.println("Um total de " + cont + " professores!");
+
+                System.out.println("Um total de " + professoresOk.size() + " professores!");
                 System.out.println("\nDesejar continuar? (y/n)");
                 palavra = scanner.next();
 
@@ -95,6 +106,7 @@ public class WebScrapeENP {
                     System.out.println("\nFechando o programa!");
                 }
             }
+            scanner.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -46,3 +46,22 @@ class ProfessorENP extends Professor {
         return sala;
     }
 }
+
+class ProfessorGeral extends Professor {
+    private String disciplina;
+    private String codigo;
+
+    public ProfessorGeral(String nome, String area, String email, String disciplina, String codigo) {
+        super(nome, area, email);
+        this.disciplina = disciplina;
+        this.codigo = codigo;
+    }
+
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+}
